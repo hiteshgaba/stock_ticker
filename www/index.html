@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html class="wf-adobeclean-n3-inactive wf-adobeclean-n4-inactive wf-inactive" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us"><head>
+   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+   <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+   <title>Get Stocks</title>
+   <link rel="stylesheet" href="files/master.css" type="text/css">
+<script type="text/javascript" src="script.js"></script> 
+
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<link href="files/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.9.0/build/yahoo/yahoo-min.js"></script> 
+
+   <style type="text/css">.tk-adobe-clean{font-family:"adobe-clean",sans-serif;}</style><link href="files/cjo5ipu-d.css" rel="stylesheet">
+  
+</head>
+<body>
+
+
+<div id="header" >
+	<form  onsubmit="headlines(); quote();  return false;">
+    <div class="wrap" >
+   <a href="index.html"><span class="label" style="font-size:25px;color:white;margin-top:20px;">Stock Ticker</span></a>
+	&nbsp&nbsp&nbsp 
+	<input type="text" id="txtTicker" style="max-width:180px; min-width:30px;"><input type="submit" value="Get Stocks">
+    <script type="text/javascript">
+    var YAHOO = {
+        Finance: {
+            SymbolSuggest: {}
+        }
+    };
+              
+$("#txtTicker").autocomplete({
+source: function (request, response) {
+var query=request.term;  
+$.ajax({
+              type: "GET",
+              url: "http://d.yimg.com/autoc.finance.yahoo.com/autoc",
+              data: {query: query},
+              dataType: "jsonp",
+              jsonp : "callback",
+              jsonpCallback: "YAHOO.Finance.SymbolSuggest.ssCallback",
+          });
+          // call back function
+          YAHOO.Finance.SymbolSuggest.ssCallback = function (data) {           
+                var suggestions = [];
+                
+                //alert(JSON.stringify(data.ResultSet.Result));                            
+                $.each(data.ResultSet.Result, function(i, val) {                                                                 
+                    suggestions.push(val.symbol+" : "+val.name);
+                    
+                });
+               
+            response(suggestions);
+          }
+},
+minLength: 1,
+select: function (event, ui) {
+               $("#txtTicker").val(ui.item.value.split(" : ")[0]);
+               $("#stockvalue").val(ui.item.name);          
+},
+});
+</script>
+	</div>
+	</form>
+</div>  
+
+
+<div id="wrap">
+    
+    <!-- type:portal / categories: -->
+</div>
+<div class="leadin-block">
+    <div class="section1" style="min-height:300px;">
+        <div class="wrap">
+            <div class="inner">
+            <div Id="name"><h1>Stock Ticker</h1></div>
+            
+            <div id="text"><p>Enables you to get the <b>quotes</b> of a company and by just entering the stock ticker symbol of that particular company.<br/>
+		The app would also provide you with the <b>charts, Stock exchange, Volume, bid, open,previous,Headlines</b> etc. for the company.<br/><br/>For any help regarding the symbols you can use the ticker symbol link on the top.</p>
+    		</div>
+	
+	<table width="100%" id="content">
+	
+    <tr>
+	<td width="50%"><span Id="qoute"></span></td>
+	<td><span Id="%change"></span></td>
+    </tr>
+    <tr>
+	<td><span id="pclose"></span></td>
+	<td><span id="open"></span></td>
+	</tr>
+    <tr>
+    <td><span id="bid"></span></td>
+	<td><span id="ask"></span></td>
+	</tr>
+    <tr>
+    <td><span id="1yte"></span></td>
+	<td><span id="dayrange"></span></td>
+    </tr>
+    <tr>
+	<td><span id="52weekrange"></span></td>
+	<td><span id="vol"></span></td>
+    </tr>
+    <tr>
+	<td><span id="avgvol"></span></td>
+	<td><span id="mcap"></span></td>
+    </tr>
+    <tr>
+	<td><span id="dh"></span></td>
+	<td><span id="dl"></span></td>
+    </tr>
+    <tr>
+	<td><div id="SEx"></div></td>
+    </tr>
+    
+	</table>
+	
+
+        
+        
+        <div class="video">   
+	 <div Id="chart">     
+    <div class="video-play">
+      <img src="files/Quantilus_finance.jpg" width="420" height="238" alt="">
+    </div>         
+	</div>
+</div>
+
+        </div>
+        </div>
+    </div>
+    <div class="section2">
+        
+       <div class="wrap">
+        <div class="diagram-container">
+
+
+
+
+
+<div class="clear-break"> </div>
+
+
+
+	<div id="headlines"></div>
+<div class="clear-break"> </div>
+
+    </div>
+<div>
+<!-- Site generated at Wed Sep 12 12:30:12 +0000 2012 -->
+
+
+
+
+</div></div></body></html>
